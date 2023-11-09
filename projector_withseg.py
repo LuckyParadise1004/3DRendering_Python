@@ -388,7 +388,7 @@ def run_projection(
     np.savez(f'{outdir}/projected_w.npz', w=projected_w.unsqueeze(0).cpu().numpy())
 
     # Save geometry
-    max_batch = 10000000
+    max_batch = 100000
     voxel_resolution = 512
     if shapes:
         # generate shapes
@@ -422,7 +422,7 @@ def run_projection(
         sigmas[:, :, :pad] = 0
         sigmas[:, :, -pad:] = 0
 
-        output_ply = False
+        output_ply = True
         if output_ply:
             from shape_utils import convert_sdf_samples_to_ply
             convert_sdf_samples_to_ply(np.transpose(sigmas, (2, 1, 0)), [0, 0, 0], 1, os.path.join(outdir, 'geometry.ply'), level=10)
